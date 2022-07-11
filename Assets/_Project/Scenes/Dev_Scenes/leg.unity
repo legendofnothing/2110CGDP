@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 2002346051}
   - component: {fileID: 2002346050}
   - component: {fileID: 2002346054}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: playerTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &2002346051
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -460,3 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 8
+  playerJumpPower: 9
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 23
