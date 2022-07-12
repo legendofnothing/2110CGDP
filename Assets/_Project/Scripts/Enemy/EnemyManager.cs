@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     public float enemyHP;
 
     [Header("Other Config")]
-    public TextMesh enemyHPDisplay;
+    public TextMesh enemyHPDisplay; //For Debug
 
     private float _currentHP;
 
@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour
     }
  
     private void Update() {
-        enemyHPDisplay.text = "HP:" + _currentHP.ToString("0");
+        enemyHPDisplay.text = "HP:" + _currentHP.ToString("0"); //For Debug
     }
 
     public void DealDamage(float dmg) {

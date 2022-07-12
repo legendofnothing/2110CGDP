@@ -35,6 +35,13 @@ public class PlayerController : MonoBehaviour
 
         //Move by using rigidBody2D.velocity
         rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+
+        //Handle Flipping
+        if (horizontalInput < 0) transform.eulerAngles = new Vector3(0, 180, 0); //Left 
+
+        if (horizontalInput > 0) transform.eulerAngles = new Vector3(0, 0, 0); //Right
+
+        else transform.eulerAngles = gameObject.transform.eulerAngles;
     }
 
     //Handles Jumping 
