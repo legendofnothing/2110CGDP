@@ -44,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
         GameObject bulletInstance = Instantiate(bulletPrefab, meleePoint.position, meleePoint.rotation);
 
         bulletInstance.GetComponent<Rigidbody2D>().velocity = transform.right * 8f;
+        bulletInstance.GetComponent<BulletBehaviour>().SetDamage(8f);
     }
 
 }
