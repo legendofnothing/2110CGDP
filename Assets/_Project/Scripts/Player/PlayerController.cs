@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Configs")]
     public float playerSpeed;   
     public float playerJumpPower;
+    public float playerDodgePower;
 
     [Header("Other Configs")]
     public LayerMask groundLayer;
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update() {
         Jump();
+
+        Dodge();
     }
 
     private void FixedUpdate() {
@@ -59,5 +62,14 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
 
         if (hit.collider == null) return false; else return true;
+    }
+
+    //Handles dodging 
+    private void Dodge()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            rb.AddRelativeForce(transform.right * playerDodgePower);
+        }
     }
 }
