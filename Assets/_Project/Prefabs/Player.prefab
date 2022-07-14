@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleePoint: {fileID: 6321249321501467379}
   bulletPrefab: {fileID: 5972385815762867524, guid: 9110aaca6b1ac2b4e85e13bf0ceb2b1a, type: 3}
+  rangeCooldown: 5
 --- !u!1 &6321249321501467376
 GameObject:
   m_ObjectHideFlags: 0

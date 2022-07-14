@@ -9,7 +9,9 @@ public class PlayerAttack : MonoBehaviour
 {
     public Transform meleePoint;
     public GameObject bulletPrefab;
+    public float rangeCooldown;
 
+    private bool _isShooting;
     private void Start() {
         
     }
@@ -21,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
     private void AttackInputs() {
         if (Input.GetKeyDown(KeyCode.J)) MeleeAttack();
 
-        if (Input.GetKeyDown(KeyCode.K)) RangeAttack();
+        if (Input.GetKeyDown(KeyCode.K) && !_isShooting) RangeAttack();
     }
 
     //Melee Attack
@@ -45,6 +47,17 @@ public class PlayerAttack : MonoBehaviour
 
         bulletInstance.GetComponent<Rigidbody2D>().velocity = transform.right * 8f;
         bulletInstance.GetComponent<BulletBehaviour>().SetDamage(8f);
+
+        StartCoroutine(RangeCooldown());
+    }
+
+    private IEnumerator RangeCooldown()
+    {
+        _isShooting = true;
+
+        yield return new WaitForSeconds(rangeCooldown);
+
+        _isShooting = false;
     }
 
 }
