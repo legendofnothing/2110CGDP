@@ -7,7 +7,7 @@ public class PlayerFollow : MonoBehaviour
     public Transform playerPos;
     private bool _outOfCam;
     private Vector3 _playerCamPos;
-
+    public float camSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +20,7 @@ public class PlayerFollow : MonoBehaviour
         _playerCamPos.z = this.transform.position.z;
         if (_outOfCam)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, _playerCamPos, 0.01f);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, _playerCamPos, camSpeed);
         }
         //cam.transform.position = Vector3.MoveTowards(cam.transform.position, playerPos.position, 1);
         if(playerPos.position.x < this.transform.position.x - 3 || playerPos.position.x > this.transform.position.x + 3)
