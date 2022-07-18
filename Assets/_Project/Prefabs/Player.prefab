@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 5.6
-  playerJumpPower: 8
+  playerJumpPower: 15
   playerDodgePower: 5
   groundLayer:
     serializedVersion: 2
