@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool _isDodging;
 
     private bool _canDodge = true;
+    private bool _canMove = true;
 
     Rigidbody2D rb;
 
@@ -41,18 +42,24 @@ public class PlayerController : MonoBehaviour
         //Get horiztonal Input
         var horizontalInput = Input.GetAxis("Horizontal");
 
-        //Move by using rigidBody2D.velocity
-        rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        CanMove();
 
-        //Handle Flipping
-        if (horizontalInput < 0) transform.eulerAngles = new Vector3(0, 180, 0); //Left 
+        if (CanMove())
+        {
+            //Move by using rigidBody2D.velocity
+            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
 
-        if (horizontalInput > 0) transform.eulerAngles = new Vector3(0, 0, 0); //Right
+            //Handle Flipping
+            if (horizontalInput < 0) transform.eulerAngles = new Vector3(0, 180, 0); //Left 
 
-        else transform.eulerAngles = gameObject.transform.eulerAngles;
+            if (horizontalInput > 0) transform.eulerAngles = new Vector3(0, 0, 0); //Right
 
-        //Handle isMoving Condition
-        if (horizontalInput > 0 || horizontalInput < 0) _isMoving = true; else _isMoving = false;
+            else transform.eulerAngles = gameObject.transform.eulerAngles;
+
+
+            //Handle isMoving Condition
+            if (horizontalInput > 0 || horizontalInput < 0) _isMoving = true; else _isMoving = false;
+        }
     }
 
     //Handles Jumping 
@@ -83,6 +90,18 @@ public class PlayerController : MonoBehaviour
         if (hit.collider == null) return false; else return true;
     }
 
+    private bool CanMove()
+    {
+        if (!IsGrounded())
+        {
+            var checkColliding = Physics2D.OverlapBox(transform.position, new Vector2(transform.localScale.x + 0.1f, transform.localScale.y), 0, groundLayer);
+
+            if (checkColliding != null) return false; else return true;
+        }
+
+        return true;
+    }
+
 
     //Coroutine for dodging
     private IEnumerator Dodging(float dir) {
@@ -107,5 +126,11 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.4f); //Dodging Cooldown (can turn this into a variable)
 
         _canDodge = true;
+    }
+
+    //Debug Only
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector2(transform.localScale.x + 0.1f, transform.localScale.y));
     }
 }
