@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     private bool _isDodging;
 
     private bool _canDodge = true;
-    private bool _canMove = true;
 
     Rigidbody2D rb;
 
@@ -84,10 +83,13 @@ public class PlayerController : MonoBehaviour
 
     //Return true if player is hitting ground, else return false
     private bool IsGrounded() {
-        //Cast a ray straight down
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f, groundLayer);
+        var offset = new Vector2(transform.position.x, transform.position.y - 0.05f); //Overlap Box Offset
+        var size = new Vector2(transform.localScale.x - 0.02f, transform.localScale.y + 0.05f); //Overlap Box Size
 
-        if (hit.collider == null) return false; else return true;
+        //Cast a ray straight down
+        var checkOnGround = Physics2D.OverlapBox(offset, size, 0, groundLayer);
+
+        if (checkOnGround == null) return false; else return true;
     }
 
     private bool CanMove()
@@ -96,7 +98,14 @@ public class PlayerController : MonoBehaviour
         {
             var checkColliding = Physics2D.OverlapBox(transform.position, new Vector2(transform.localScale.x + 0.1f, transform.localScale.y), 0, groundLayer);
 
-            if (checkColliding != null) return false; else return true;
+            if (checkColliding == null) return true; 
+            
+            else
+            {
+                if (_isDodging) StopCoroutine(Dodging(0));
+
+                return false;
+            }
         }
 
         return true;
@@ -131,6 +140,6 @@ public class PlayerController : MonoBehaviour
     //Debug Only
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector2(transform.localScale.x + 0.1f, transform.localScale.y));
+        Gizmos.DrawWireCube(new Vector2(transform.position.x, transform.position.y - 0.05f), new Vector2(transform.localScale.x - 0.02f, transform.localScale.y + 0.05f));
     }
 }
