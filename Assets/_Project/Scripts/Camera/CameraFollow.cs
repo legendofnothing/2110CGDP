@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class PlayerFollow : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
     //private float _playerScale;
     //public CinemachineVirtualCamera thisCam;
