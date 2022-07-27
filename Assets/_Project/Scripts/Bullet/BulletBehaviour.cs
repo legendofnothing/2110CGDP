@@ -23,4 +23,6 @@ public class BulletBehaviour : MonoBehaviour
     }
 
     public void SetDamage(float amount) { damage = amount; }
+
+    //I am gonna eat burgers separately
 }
